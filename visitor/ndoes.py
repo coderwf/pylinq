@@ -38,15 +38,6 @@ JOIN_TABLE = namedtuple("join_table", "join_type table condition")
 ORDER_BY = namedtuple("order_by", "expression order")
 
 
-class VarEnv:
-    def __init__(self):
-        self.variable = dict()
-
-    def set(self, name, value):
-        self.variable[name] = value
-
-    def get(self, name):
-        return self.variable.get(name)
 
 
 class ExprCompiler:
@@ -244,10 +235,3 @@ def visit_order_clause():
 def visit_clause():
     pass
 
-
-if __name__ == "__main__":
-    c1 = COLUMN("a", "b", "")
-    c2 = COLUMN("1", "1", "")
-    c = CONST(1, "")
-    _, expr = ExprCompiler(VarEnv()).compile(EXPR2("in", c, EXPS((c1, c2), ""), ""))
-    print(visit(expr, [1,2]))
